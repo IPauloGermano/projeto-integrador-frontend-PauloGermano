@@ -1,0 +1,163 @@
+:root {
+  --preto: #0a0a0a;
+  --branco: #ffffff;
+  --cinza: #f4f4f5;
+  --cinza-borda: #e5e7eb;
+  --cinza-texto: #71717a;
+  --neon: #c8ff00;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--branco);
+  color: var(--preto);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.header {
+  height: 70px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--cinza-borda);
+  background: var(--branco);
+}
+
+.header_container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+}
+
+.header_logo {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+/* Seção Astros / Ícones */
+.icons {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 80px 40px 120px;
+  text-align: center;
+}
+
+.icons_title {
+  font-size: 1.75rem;
+  font-weight:  800;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.icons_subtitle {
+  font-size: 0.95rem;
+  color: var(--cinza-texto);
+  margin-bottom: 48px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+/* Cards */
+.card_box {
+  position: relative;
+  background: var(--cinza);
+  border-radius: 8px;
+  aspect-ratio: 3 / 4;
+  padding: 24px 20px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.card_box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+}
+
+.card_box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.card_box:hover img {
+  transform: scale(1.05);
+}
+
+.card_name {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--preto);
+  text-align: center;
+}
+
+.card_name::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: var(--neon);
+  border-radius: 2px;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .icons {
+    padding: 60px 24px 80px;
+  }
+
+  .header_container {
+    padding: 0 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .icons {
+    padding: 40px 16px 60px;
+  }
+
+  .header_container {
+    padding: 0 16px;
+  }
+
+  .icons_title {
+    font-size: 1.4rem;
+  }
+}
