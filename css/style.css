@@ -127,6 +127,47 @@ body {
   border-radius: 2px;
 }
 
+/* Seção Vídeo / Multimídia */
+.video_section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 40px 100px;
+  text-align: center;
+}
+
+.video_container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: var(--cinza);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--cinza-borda);
+  padding: 16px;
+}
+
+.video_player {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+  background-color: var(--preto);
+}
+
+.video_compatibilidade {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cinza-texto);
+}
+
+/* Estilo das Legendas (WebVTT) */
+::cue {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.05rem;
+  background-color: rgba(10, 10, 10, 0.85);
+  color: var(--branco);
+  border-radius: 4px;
+}
+
 /* Responsividade */
 @media (max-width: 1024px) {
   .grid {
@@ -159,5 +200,9 @@ body {
 
   .icons_title {
     font-size: 1.4rem;
+  }
+
+  .video_section {
+    padding: 0 16px 60px;
   }
 }

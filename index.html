@@ -62,6 +62,69 @@
           </div>
         </div>
       </section>
+
+      <!-- Seção Multimídia (Aula 04) -->
+      <section class="video_section">
+        <h2 class="icons_title">Conheça a VOLT</h2>
+        <p class="icons_subtitle">Assista ao vídeo institucional de lançamento</p>
+
+        <div class="video_container">
+          <!--
+            preload="none": Escolhido para economizar dados e acelerar o carregamento inicial
+            da landing page, baixando o arquivo de vídeo apenas quando o usuário decidir clicar em play.
+          -->
+          <video controls poster="images/poster.jpg" preload="none" class="video_player">
+            <source src="images/video.webm" type="video/webm" />
+            <source src="images/video.mp4" type="video/mp4" />
+            <track src="legendas.vtt" kind="subtitles" srclang="pt-BR" label="Português" default />
+            Seu navegador não suporta a tag de vídeo HTML5.
+          </video>
+
+          <p id="suporte-video" class="video_compatibilidade"></p>
+        </div>
+      </section>
     </main>
+
+    <!-- Script: Verificação canPlayType() e ativação das legendas -->
+    <script>
+      // Desafio Extra: verificação com canPlayType()
+      const videoTeste = document.createElement('video');
+      const elementoInfo = document.getElementById('suporte-video');
+
+      if (videoTeste.canPlayType('video/webm') !== '') {
+        elementoInfo.textContent = 'Formato suportado pelo navegador: WebM';
+      } else if (videoTeste.canPlayType('video/mp4') !== '') {
+        elementoInfo.textContent = 'Formato suportado pelo navegador: MP4';
+      } else {
+        elementoInfo.textContent = 'Nenhum formato compatível suportado.';
+      }
+
+      // Garantir que as legendas fiquem visíveis ao reproduzir
+      const player = document.querySelector('.video_player');
+      if (player) {
+        const ativarLegendas = () => {
+          if (player.textTracks && player.textTracks.length > 0) {
+            player.textTracks[0].mode = 'showing';
+          }
+        };
+
+        player.addEventListener('play', ativarLegendas);
+        player.addEventListener('loadedmetadata', ativarLegendas);
+
+        // Fallback caso o arquivo seja aberto diretamente via file:// (onde o navegador bloqueia VTT por CORS)
+        const trackTag = player.querySelector('track');
+        if (trackTag) {
+          trackTag.addEventListener('error', () => {
+            if (player.textTracks && player.textTracks.length > 0) {
+              const track = player.textTracks[0];
+              track.mode = 'showing';
+              track.addCue(new VTTCue(0.5, 2.8, 'Conheça a nova linha VOLT: tecnologia e máxima performance.'));
+              track.addCue(new VTTCue(3.0, 5.5, 'Design anatômico feito para você ir além dos seus limites.'));
+              track.addCue(new VTTCue(5.8, 7.8, 'VOLT — O tênis para ir além.'));
+            }
+          });
+        }
+      }
+    </script>
   </body>
 </html>
