@@ -13,6 +13,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background: var(--branco);
@@ -20,13 +24,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Header */
+/* Header & Navbar (Position Sticky + Flexbox) */
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
   height: 70px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid var(--cinza-borda);
-  background: var(--branco);
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
 }
 
 .header_container {
@@ -36,12 +44,175 @@ body {
   padding: 0 40px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.header_brand {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .header_logo {
   height: 36px;
   width: auto;
   display: block;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+}
+
+.nav_menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+}
+
+.nav_item {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.nav_link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--cinza-texto);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.nav_link:hover,
+.nav_link:focus-visible {
+  color: var(--preto);
+  background-color: var(--cinza);
+}
+
+/* Estado .ativo indicando a seção atual da página */
+.nav_link.ativo {
+  color: var(--preto);
+  font-weight: 700;
+}
+
+.nav_link.ativo::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 4px;
+  height: 2px;
+  background: var(--neon);
+  border-radius: 2px;
+}
+
+/* Dropdown Funcional via :hover */
+.dropdown_seta {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+}
+
+.nav_item--dropdown:hover .dropdown_seta,
+.nav_item--dropdown:focus-within .dropdown_seta {
+  transform: rotate(180deg);
+}
+
+.dropdown_menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 230px;
+  padding: 8px;
+  margin-top: 6px;
+  list-style: none;
+  background: var(--branco);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  z-index: 110;
+}
+
+/* Ponte invisível para evitar "buracos" no hover entre o item pai e o submenu */
+.dropdown_menu::before {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 0;
+  right: 0;
+  height: 12px;
+}
+
+.nav_item--dropdown:hover .dropdown_menu,
+.nav_item--dropdown:focus-within .dropdown_menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown_link {
+  display: block;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--preto);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.15s ease, padding-left 0.15s ease;
+}
+
+.dropdown_link:hover,
+.dropdown_link:focus-visible {
+  background-color: var(--cinza);
+  padding-left: 16px;
+  box-shadow: inset 3px 0 0 var(--neon);
+}
+
+/* Botão Menu Hambúrguer (telas estreitas) */
+.menu_hamburguer {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  padding: 8px;
+  background: transparent;
+  border: 1px solid var(--cinza-borda);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.menu_hamburguer:hover,
+.menu_hamburguer:focus-visible {
+  background-color: var(--cinza);
+  border-color: var(--preto);
+}
+
+.hamburguer_linha {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: var(--preto);
+  border-radius: 2px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 /* Seção Astros / Ícones */
@@ -127,6 +298,89 @@ body {
   border-radius: 2px;
 }
 
+/* Seção Tecnologia */
+.tech {
+  background: var(--cinza);
+  border-top: 1px solid var(--cinza-borda);
+  border-bottom: 1px solid var(--cinza-borda);
+  padding: 96px 40px;
+}
+
+.tech_container {
+  max-width: 1440px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tech_badge {
+  display: inline-block;
+  padding: 4px 12px;
+  margin-bottom: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  background: var(--neon);
+  color: var(--preto);
+  border-radius: 999px;
+}
+
+.tech_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  text-align: left;
+}
+
+.tech_card {
+  background: var(--branco);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 8px;
+  padding: 32px 28px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tech_card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.04);
+}
+
+.tech_card_title {
+  font-size: 1rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+  color: var(--preto);
+}
+
+.tech_card_text {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--cinza-texto);
+}
+
+/* Rodapé */
+.footer {
+  background: var(--preto);
+  color: var(--branco);
+  padding: 48px 40px;
+}
+
+.footer_container {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer_copy {
+  font-size: 0.85rem;
+  color: var(--cinza-texto);
+}
+
 /* Responsividade */
 @media (max-width: 1024px) {
   .grid {
@@ -134,12 +388,31 @@ body {
     gap: 20px;
   }
 
+  .tech_grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
   .icons {
     padding: 60px 24px 80px;
   }
 
+  .tech {
+    padding: 64px 24px;
+  }
+
   .header_container {
     padding: 0 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav_menu {
+    display: none;
+  }
+
+  .menu_hamburguer {
+    display: flex;
   }
 }
 
@@ -151,6 +424,14 @@ body {
 
   .icons {
     padding: 40px 16px 60px;
+  }
+
+  .tech {
+    padding: 48px 16px;
+  }
+
+  .footer {
+    padding: 32px 16px;
   }
 
   .header_container {

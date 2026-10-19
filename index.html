@@ -17,14 +17,65 @@
   </head>
 
   <body>
+    <!--
+      Diagnóstico de Contexto de Empilhamento (Stacking Context - Aula 08):
+      Ao aplicar `position: sticky; top: 0;` no `.header` e abrir o `.dropdown_menu`
+      (`position: absolute`) durante a rolagem da página, os cards de produto (`.card_box`)
+      da seção `<main>` sobrepunham o cabeçalho e o menu dropdown.
+      Inspecionando pelo DevTools (painel Elements / Layout), constatou-se que `.card_box`
+      possui `position: relative` (e `transform` no `:hover`), criando contextos de
+      empilhamento próprios que aparecem depois do `<header>` na ordem do DOM.
+      Para resolver o conflito de forma controlada, definiu-se `z-index: 100` no `.header`,
+      garantindo que o contexto de empilhamento da barra de navegação fique sempre acima
+      dos elementos posicionados do conteúdo principal.
+    -->
     <header class="header">
       <div class="header_container">
-        <img class="header_logo" src="images/tenis/logo/icon.png" alt="VOLT" />
+        <a href="#inicio" class="header_brand" aria-label="VOLT — Página inicial">
+          <img class="header_logo" src="images/tenis/logo/icon.png" alt="VOLT" />
+        </a>
+
+        <nav class="navbar" aria-label="Navegação principal">
+          <button
+            class="menu_hamburguer"
+            type="button"
+            aria-label="Abrir menu de navegação"
+            aria-expanded="false"
+          >
+            <span class="hamburguer_linha"></span>
+            <span class="hamburguer_linha"></span>
+            <span class="hamburguer_linha"></span>
+          </button>
+
+          <ul class="nav_menu">
+            <li class="nav_item">
+              <a href="#astros" class="nav_link ativo" aria-current="page">Astros da Marca</a>
+            </li>
+            <li class="nav_item nav_item--dropdown">
+              <a href="#categorias" class="nav_link nav_link--dropdown" aria-haspopup="true">
+                Categorias
+                <span class="dropdown_seta" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown_menu" aria-label="Submenu de categorias">
+                <li><a href="#corrida" class="dropdown_link">Corrida &amp; Performance</a></li>
+                <li><a href="#treino" class="dropdown_link">Treino &amp; Cross</a></li>
+                <li><a href="#urbano" class="dropdown_link">Lifestyle &amp; Urbano</a></li>
+                <li><a href="#lancamentos" class="dropdown_link">Edições Limitadas</a></li>
+              </ul>
+            </li>
+            <li class="nav_item">
+              <a href="#tecnologia" class="nav_link">Tecnologia</a>
+            </li>
+            <li class="nav_item">
+              <a href="#contato" class="nav_link">Contato</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </header>
 
-    <main>
-      <section class="icons">
+    <main id="inicio">
+      <section class="icons" id="astros">
         <h2 class="icons_title">Astros da Marca</h2>
         <p class="icons_subtitle">Modelos criados para máxima performance e estilo</p>
 
@@ -62,6 +113,45 @@
           </div>
         </div>
       </section>
+
+      <section class="tech" id="tecnologia">
+        <div class="tech_container">
+          <span class="tech_badge">Engenharia Esportiva</span>
+          <h2 class="icons_title">Tecnologia de Propulsão VOLT</h2>
+          <p class="icons_subtitle">
+            Entressola em espuma de nitrogênio injetado e placa de carbono responsiva para retorno máximo de energia a cada passada.
+          </p>
+
+          <div class="tech_grid">
+            <article class="tech_card" id="corrida">
+              <h3 class="tech_card_title">Corrida &amp; Performance</h3>
+              <p class="tech_card_text">
+                Geometria aerodinâmica projetada para reduzir o impacto articular e acelerar transições em longas distâncias.
+              </p>
+            </article>
+
+            <article class="tech_card" id="treino">
+              <h3 class="tech_card_title">Treino &amp; Cross</h3>
+              <p class="tech_card_text">
+                Base estabilizadora de alta tração com suporte lateral reforçado para movimentos explosivos e multidirecionais.
+              </p>
+            </article>
+
+            <article class="tech_card" id="urbano">
+              <h3 class="tech_card_title">Lifestyle &amp; Urbano</h3>
+              <p class="tech_card_text">
+                Cabedal respirável em malha técnica ultraleve que une estética minimalista e conforto para o uso diário.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
     </main>
+
+    <footer class="footer" id="contato">
+      <div class="footer_container">
+        <p class="footer_copy">&copy; 2026 VOLT — Tênis para ir além. Todos os direitos reservados.</p>
+      </div>
+    </footer>
   </body>
 </html>
