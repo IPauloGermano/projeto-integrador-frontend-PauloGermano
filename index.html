@@ -17,18 +17,6 @@
   </head>
 
   <body>
-    <!--
-      Diagnóstico de Contexto de Empilhamento (Stacking Context - Aula 08):
-      Ao aplicar `position: sticky; top: 0;` no `.header` e abrir o `.dropdown_menu`
-      (`position: absolute`) durante a rolagem da página, os cards de produto (`.card_box`)
-      da seção `<main>` sobrepunham o cabeçalho e o menu dropdown.
-      Inspecionando pelo DevTools (painel Elements / Layout), constatou-se que `.card_box`
-      possui `position: relative` (e `transform` no `:hover`), criando contextos de
-      empilhamento próprios que aparecem depois do `<header>` na ordem do DOM.
-      Para resolver o conflito de forma controlada, definiu-se `z-index: 100` no `.header`,
-      garantindo que o contexto de empilhamento da barra de navegação fique sempre acima
-      dos elementos posicionados do conteúdo principal.
-    -->
     <header class="header">
       <div class="header_container">
         <a href="#inicio" class="header_brand" aria-label="VOLT — Página inicial">
@@ -114,16 +102,12 @@
         </div>
       </section>
 
-      <!-- Seção Multimídia (Aula 04) -->
+      <!-- Vídeo institucional -->
       <section class="video_section">
         <h2 class="icons_title">Conheça a VOLT</h2>
         <p class="icons_subtitle">Assista ao vídeo institucional de lançamento</p>
 
         <div class="video_container">
-          <!--
-            preload="none": Escolhido para economizar dados e acelerar o carregamento inicial
-            da landing page, baixando o arquivo de vídeo apenas quando o usuário decidir clicar em play.
-          -->
           <video controls poster="images/poster.jpg" preload="none" class="video_player">
             <source src="images/video.webm" type="video/webm" />
             <source src="images/video.mp4" type="video/mp4" />
@@ -175,9 +159,8 @@
       </div>
     </footer>
 
-    <!-- Script: Verificação canPlayType() e ativação das legendas -->
+    <!-- Suporte a vídeo e legendas -->
     <script>
-      // Desafio Extra: verificação com canPlayType()
       const videoTeste = document.createElement('video');
       const elementoInfo = document.getElementById('suporte-video');
 
@@ -189,7 +172,7 @@
         elementoInfo.textContent = 'Nenhum formato compatível suportado.';
       }
 
-      // Garantir que as legendas fiquem visíveis ao reproduzir
+      // Exibição de legendas
       const player = document.querySelector('.video_player');
       if (player) {
         const ativarLegendas = () => {
@@ -201,7 +184,7 @@
         player.addEventListener('play', ativarLegendas);
         player.addEventListener('loadedmetadata', ativarLegendas);
 
-        // Fallback caso o arquivo seja aberto diretamente via file:// (onde o navegador bloqueia VTT por CORS)
+        // Fallback para execução local (file://)
         const trackTag = player.querySelector('track');
         if (trackTag) {
           trackTag.addEventListener('error', () => {

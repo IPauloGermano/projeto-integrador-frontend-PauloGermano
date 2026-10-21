@@ -1,43 +1,4 @@
-/*
- * ============================================================================
- * PROJETO INTEGRADOR — VOLT (Tênis Esportivos de Alta Performance)
- * Aula 09: Mini-Analisador de Dados em JavaScript Puro (js/logica.js)
- * ============================================================================
- *
- * 1. PLANEJAMENTO (Tema, Entrada, Processamento, Saída e Pseudocódigo)
- * ----------------------------------------------------------------------------
- * - Tema: Catálogo e controle de estoque de tênis esportivos da marca VOLT.
- * - Entrada:
- *   1) Um limite numérico (via prompt) que define a quantidade máxima para
- *      classificar o estoque de um modelo como "Baixo" (entre 1 e 50).
- *   2) Comandos de consulta rápida (via prompt em laço while) pelo nome da
- *      categoria ("corrida", "treino", "urbano", "edicao-limitada") até o
- *      usuário digitar "sair".
- * - Processamento:
- *   1) Validar e converter a entrada numérica com Number(), tratando null,
- *      string vazia, NaN e valores fora da faixa permitida (1 a 50).
- *   2) Percorrer o catálogo de tênis classificando o nível de estoque com
- *      if / else if / else ("Esgotado", "Baixo", "Normal", "Elevado") e
- *      mapeando a seção da loja com switch sobre a propriedade categoria.
- *   3) Calcular indicadores com acumuladores, contadores, máximo e média
- *      (unidades totais, valor financeiro do estoque, itens críticos, modelo
- *      mais caro e preço médio).
- * - Saída esperada:
- *   Relatório detalhado no Console com frases em template literal, tabela
- *   estruturada via console.table() e resultado das consultas do laço while.
- *
- * - Pseudocódigo (7 linhas):
- *   1. DECLARAR constante catalogoTenisVolt com 6 modelos (nome, preco, estoque, categoria)
- *   2. LER limiteDigitado via prompt, converter com Number() e validar null, vazio, NaN e faixa [1..50]
- *   3. INICIALIZAR acumuladores (valorTotalEstoque, unidadesTotais, somaPrecos), contadores e modeloMaisCaro
- *   4. PARA CADA modelo do catalogoTenisVolt: classificar estoque (if/else if/else) e definir secaoLoja (switch)
- *   5. ATUALIZAR no laço os contadores, somadores e verificar se o preco atual supera o modeloMaisCaro
- *   6. EXIBIR tabela com console.table(relatorioCatalogo) e resumo formatado com template literals
- *   7. ENQUANTO comando do usuário for diferente de "sair", ler categoria via prompt e exibir modelos filtrados
- * ============================================================================
- */
-
-// 2. DECLARAÇÃO DOS DADOS (const, camelCase, sem acentos nos identificadores)
+// Catálogo de tênis
 const catalogoTenisVolt = [
   {
     nome: "VOLT Cyborg 2",
@@ -77,7 +38,7 @@ const catalogoTenisVolt = [
   }
 ];
 
-// 3. ENTRADA COM PROMPT, CONVERSÃO COM Number() E VALIDAÇÃO COMPLETA (Evita Erro 2)
+// Limite para estoque baixo
 const limitePadraoEstoqueBaixo = 5;
 const entradaLimiteBruta = prompt(
   "⚡ VOLT Analisador de Estoque\nInforme o limite de unidades para considerar 'Estoque Baixo' (número entre 1 e 50):",
@@ -110,7 +71,7 @@ if (entradaLimiteBruta === null) {
   }
 }
 
-// 4, 5 e 6. CLASSIFICAÇÃO (if/else if/else + switch) E RESUMO COM LAÇO
+// Processamento e totais
 let unidadesTotais = 0;
 let valorTotalEstoque = 0;
 let somaPrecosCatalogo = 0;
@@ -121,11 +82,10 @@ let modeloMaisCaro = catalogoTenisVolt[0];
 
 const relatorioCatalogo = [];
 
-// Uso de for com limite estrito (< catalogoTenisVolt.length) evitando Erro 3 (off-by-one)
 for (let i = 0; i < catalogoTenisVolt.length; i++) {
   const modelo = catalogoTenisVolt[i];
 
-  // Passo 4: Classificação em 4 faixas com if / else if / else na ordem correta e usando === (Evita Erro 1)
+  // Status do estoque
   let statusEstoque = "";
   if (modelo.estoque === 0) {
     statusEstoque = "Esgotado";
@@ -141,7 +101,7 @@ for (let i = 0; i < catalogoTenisVolt.length; i++) {
     statusEstoque = "Elevado";
   }
 
-  // Passo 5: switch sobre propriedade de texto (categoria) com break em todos os cases e default (Evita Erro 5)
+  // Setor da loja
   let secaoLoja = "";
   switch (modelo.categoria) {
     case "corrida":
@@ -161,7 +121,7 @@ for (let i = 0; i < catalogoTenisVolt.length; i++) {
       break;
   }
 
-  // Passo 6: Padrões de acumulador e máximo/mínimo
+  // Acumuladores e destaque
   const subtotalModelo = modelo.preco * modelo.estoque;
   unidadesTotais += modelo.estoque;
   valorTotalEstoque += subtotalModelo;
@@ -185,19 +145,7 @@ for (let i = 0; i < catalogoTenisVolt.length; i++) {
 
 const precoMedioCatalogo = somaPrecosCatalogo / catalogoTenisVolt.length;
 
-/*
- * ============================================================================
- * 9. TESTE DE MESA — 3 PRIMEIRAS VOLTAS DO LAÇO PRINCIPAL (limiteEstoqueBaixo = 5)
- * ============================================================================
- * | Volta (i) | modelo.nome   | estoque | statusEstoque | categoria | subtotalModelo | valorTotalEstoque | unidadesTotais | quantidadeCriticos | modeloMaisCaro.nome |
- * |-----------|---------------|---------|---------------|-----------|----------------|-------------------|----------------|--------------------|---------------------|
- * | 0         | VOLT Cyborg 2 | 12      | "Normal"      | "corrida" | 10798.80       | 10798.80          | 12             | 0                  | "VOLT Cyborg 2"     |
- * | 1         | VOLT Ikill 4  | 3       | "Baixo"       | "treino"  | 2249.70        | 13048.50          | 15             | 1                  | "VOLT Cyborg 2"     |
- * | 2         | VOLT Amp 3    | 0       | "Esgotado"    | "urbano"  | 0.00           | 13048.50          | 15             | 2                  | "VOLT Cyborg 2"     |
- * ============================================================================
- */
-
-// 8. EXIBIÇÃO DO RESULTADO COM TEMPLATE LITERAL E CONSOLE.TABLE
+// Exibição dos resultados
 console.log("==============================================================");
 console.log(`⚡ RELATÓRIO DE ESTOQUE E CATÁLOGO — VOLT`);
 console.log(`Parâmetro aplicado para Estoque Baixo: menos de ${limiteEstoqueBaixo} unidades`);
@@ -221,7 +169,7 @@ console.log(
   `⚠️ Alerta de reposição: ${quantidadeCriticos} modelo(s) em estado crítico (${quantidadeEsgotados} esgotado(s) e ${quantidadeEstoqueBaixo} com estoque baixo)`
 );
 
-// 7. LAÇO WHILE COM ATUALIZAÇÃO DA CONDIÇÃO DE SAÍDA DENTRO DO BLOCO (Evita Erro 4)
+// Consulta por categoria
 let comandoConsulta = prompt(
   "🔍 Consulta Rápida VOLT\nDigite uma categoria para listar os modelos ('corrida', 'treino', 'urbano', 'edicao-limitada') ou digite 'sair' para encerrar:",
   "sair"
@@ -248,7 +196,6 @@ while (comandoConsulta !== null && comandoConsulta.trim().toLowerCase() !== "sai
     );
   }
 
-  // Atualização obrigatória da variável de controle dentro do while (evita loop infinito)
   comandoConsulta = prompt(
     "🔍 Digite outra categoria ('corrida', 'treino', 'urbano', 'edicao-limitada') ou 'sair' para finalizar:",
     "sair"

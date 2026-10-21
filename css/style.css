@@ -24,7 +24,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Header & Navbar (Position Sticky + Flexbox) */
+/* Header & Navbar */
 .header {
   position: sticky;
   top: 0;
@@ -99,7 +99,7 @@ body {
   background-color: var(--cinza);
 }
 
-/* Estado .ativo indicando a seção atual da página */
+/* Link ativo */
 .nav_link.ativo {
   color: var(--preto);
   font-weight: 700;
@@ -116,7 +116,7 @@ body {
   border-radius: 2px;
 }
 
-/* Dropdown Funcional via :hover */
+/* Dropdown */
 .dropdown_seta {
   font-size: 0.75rem;
   transition: transform 0.2s ease;
@@ -147,7 +147,6 @@ body {
   z-index: 110;
 }
 
-/* Ponte invisível para evitar "buracos" no hover entre o item pai e o submenu */
 .dropdown_menu::before {
   content: "";
   position: absolute;
@@ -183,7 +182,7 @@ body {
   box-shadow: inset 3px 0 0 var(--neon);
 }
 
-/* Botão Menu Hambúrguer (telas estreitas) */
+/* Menu mobile */
 .menu_hamburguer {
   display: none;
   flex-direction: column;
@@ -215,7 +214,7 @@ body {
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-/* Seção Astros / Ícones */
+/* Produtos */
 .icons {
   max-width: 1440px;
   margin: 0 auto;
@@ -298,7 +297,7 @@ body {
   border-radius: 2px;
 }
 
-/* Seção Vídeo / Multimídia */
+/* Vídeo */
 .video_section {
   max-width: 960px;
   margin: 0 auto;
@@ -330,7 +329,7 @@ body {
   color: var(--cinza-texto);
 }
 
-/* Estilo das Legendas (WebVTT) */
+/* Legendas */
 ::cue {
   font-family: 'Inter', sans-serif;
   font-size: 1.05rem;
@@ -339,7 +338,7 @@ body {
   border-radius: 4px;
 }
 
-/* Seção Tecnologia */
+/* Tecnologia */
 .tech {
   background: var(--cinza);
   border-top: 1px solid var(--cinza-borda);
