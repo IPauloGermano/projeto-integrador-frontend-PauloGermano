@@ -485,3 +485,128 @@ body {
     padding: 0 16px 60px;
   }
 }
+
+
+/* ==========================================================================
+   Seção Dinâmica de Estoque e Catálogo (Manipulação de DOM)
+   ========================================================================== */
+.resultado-secao {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 60px 40px;
+  border-top: 1px solid var(--cinza-borda);
+}
+
+.resultado-titulo {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--preto);
+}
+
+.resultado-subtitulo {
+  margin-top: 8px;
+  margin-bottom: 32px;
+  color: var(--cinza-texto);
+  font-size: 0.95rem;
+}
+
+.resultado-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.resultado-card {
+  background: var(--branco);
+  border: 1px solid var(--cinza-borda);
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resultado-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.resultado-card-nome {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--preto);
+}
+
+.resultado-card-info {
+  font-size: 0.9rem;
+  color: var(--cinza-texto);
+}
+
+.resultado-card-destaque {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--preto);
+  margin-top: 4px;
+}
+
+/* Badges de Classificação Dinâmica */
+.resultado-badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-top: 12px;
+  letter-spacing: 0.05em;
+}
+
+.status-disponivel {
+  background-color: #eafaf1;
+  color: #27ae60;
+  border: 1px solid #27ae60;
+}
+
+.status-ultimas-unidades {
+  background-color: #fef9e7;
+  color: #d68910;
+  border: 1px solid #d68910;
+}
+
+.status-esgotado {
+  background-color: #fdedec;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+}
+
+/* Painel de Resumo (.reduce) */
+.resultado-resumo {
+  background: var(--preto);
+  color: var(--branco);
+  border-radius: 12px;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.resultado-resumo-titulo {
+  font-size: 1.25rem;
+  color: var(--neon);
+  font-weight: 700;
+}
+
+.resultado-resumo p {
+  font-size: 1rem;
+  color: #d4d4d8;
+}
+
+@media (max-width: 560px) {
+  .resultado-secao {
+    padding: 40px 16px;
+  }
+}
