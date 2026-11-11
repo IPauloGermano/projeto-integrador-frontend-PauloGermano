@@ -55,6 +55,9 @@
               <a href="#tecnologia" class="nav_link">Tecnologia</a>
             </li>
             <li class="nav_item">
+              <a href="#resultado" class="nav_link">Catálogo &amp; Estoque</a>
+            </li>
+            <li class="nav_item">
               <a href="#contato" class="nav_link">Contato</a>
             </li>
           </ul>
@@ -152,8 +155,118 @@
         </div>
       </section>
 
-      <!-- Seção Dinâmica de Estoque e Catálogo (Manipulação de DOM) -->
-      <section class="resultado-secao" id="resultado"></section>
+      <!-- Seção Dinâmica de Estoque e Catálogo (Aula 12: DOM Seguro, Eventos e Acessibilidade) -->
+      <section class="resultado-secao" id="resultado" aria-labelledby="catalogo-titulo">
+        <div class="resultado-header">
+          <div class="resultado-titulos">
+            <span class="tech_badge">Coleção &amp; Inventário</span>
+            <h2 class="resultado-titulo" id="catalogo-titulo">Catálogo Interativo VOLT</h2>
+            <p class="resultado-subtitulo">
+              Explore nossos modelos, filtre por categoria e consulte a disponibilidade de estoque em tempo real.
+            </p>
+          </div>
+
+          <!-- Controle com Estado Acessível (aria-expanded) -->
+          <div class="resultado-topo-acoes">
+            <button
+              type="button"
+              id="btn-toggle-painel"
+              class="btn-toggle-painel"
+              aria-expanded="false"
+              aria-controls="painel-estatisticas"
+            >
+              <span class="btn-toggle-icone" aria-hidden="true">📊</span>
+              <span class="btn-toggle-rotulo">Painel de Métricas</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Painel retrátil com estado acessível controlado pelo botão acima -->
+        <aside
+          id="painel-estatisticas"
+          class="painel-estatisticas"
+          aria-labelledby="painel-titulo"
+          hidden
+        >
+          <div class="painel-header">
+            <div class="painel-identificacao">
+              <span class="painel-tag">Analytics</span>
+              <h3 id="painel-titulo" class="painel-titulo">Métricas Gerais de Estoque</h3>
+            </div>
+            <button
+              type="button"
+              id="btn-fechar-painel"
+              class="btn-fechar-painel"
+              aria-label="Fechar painel de métricas"
+            >
+              <span aria-hidden="true">✕</span>
+            </button>
+          </div>
+
+          <div class="painel-metricas-grid">
+            <div class="metrica-item">
+              <span class="metrica-label">Patrimônio em Estoque</span>
+              <strong class="metrica-valor" id="metrica-patrimonio">R$ 0,00</strong>
+            </div>
+            <div class="metrica-item">
+              <span class="metrica-label">Total de Pares</span>
+              <strong class="metrica-valor" id="metrica-pares">0 un.</strong>
+            </div>
+            <div class="metrica-item">
+              <span class="metrica-label">Preço Médio</span>
+              <strong class="metrica-valor" id="metrica-media">R$ 0,00</strong>
+            </div>
+            <div class="metrica-item">
+              <span class="metrica-label">Modelos Críticos</span>
+              <strong class="metrica-valor" id="metrica-criticos">0 modelos</strong>
+            </div>
+          </div>
+
+          <p class="painel-dica">
+            Dica de acessibilidade: pressione <kbd>Esc</kbd> para fechar este painel e devolver o foco para o botão de origem.
+          </p>
+        </aside>
+
+        <!-- Barra de Busca e Filtro (sem onclick no HTML) -->
+        <div class="catalogo-barra-controles" role="search" aria-label="Filtros do catálogo VOLT">
+          <div class="controle-grupo controle-busca">
+            <label for="campo-busca" class="controle-label">Buscar modelo:</label>
+            <input
+              type="search"
+              id="campo-busca"
+              class="campo-busca"
+              placeholder="Ex.: Cyborg, amortecimento, carbono..."
+              autocomplete="off"
+            />
+          </div>
+
+          <div class="controle-grupo controle-select">
+            <label for="filtro-categoria" class="controle-label">Categoria:</label>
+            <select id="filtro-categoria" class="select-filtro">
+              <option value="todos">Todas as categorias</option>
+              <option value="corrida">Corrida &amp; Performance</option>
+              <option value="treino">Treino &amp; Cross</option>
+              <option value="urbano">Lifestyle &amp; Urbano</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Linha de Resumo Dinâmica com aria-live="polite" -->
+        <div
+          id="linha-resumo"
+          class="linha-resumo"
+          aria-live="polite"
+          aria-atomic="true"
+        ></div>
+
+        <!-- Contêiner pai da lista onde a Delegação de Eventos é registrada -->
+        <div
+          id="catalogo-lista"
+          class="resultado-grid"
+          role="region"
+          aria-label="Lista de modelos de tênis VOLT"
+        ></div>
+      </section>
     </main>
 
     <footer class="footer" id="contato">
